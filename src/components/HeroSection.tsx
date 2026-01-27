@@ -89,6 +89,7 @@ export const HeroSection = () => {
             value={formatNumber(latestEmployment.value)}
             unit="thousand"
             trend={employmentGrowth}
+            trendPeriod="since Jan 2022"
             icon="employment"
             delay={0.3}
           />
@@ -97,6 +98,7 @@ export const HeroSection = () => {
             value={formatNumber(latestSalary.value, 0)}
             unit="K AMD"
             trend={salaryGrowth}
+            trendPeriod="since Jan 2022"
             icon="salary"
             delay={0.4}
           />
