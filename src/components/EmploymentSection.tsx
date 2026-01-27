@@ -152,7 +152,6 @@ export const EmploymentSection = () => {
               highlightedYear={highlightedYear}
               unit="K people"
               yAxisDomain={[20, 35]}
-              variant="epic"
             />
             
             {/* Context note */}
