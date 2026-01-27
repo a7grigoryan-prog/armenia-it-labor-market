@@ -3,6 +3,7 @@ import { ScrollProgress } from '@/components/ScrollProgress';
 import { HeroSection } from '@/components/HeroSection';
 import { EmploymentSection } from '@/components/EmploymentSection';
 import { SalarySection } from '@/components/SalarySection';
+import { SectorComparisonSection } from '@/components/SectorComparisonSection';
 import { InsightSection } from '@/components/InsightSection';
 import { Footer } from '@/components/Footer';
 
@@ -20,6 +21,7 @@ const Index = () => {
         <HeroSection />
         <EmploymentSection />
         <SalarySection />
+        <SectorComparisonSection />
         <InsightSection />
       </main>
 
