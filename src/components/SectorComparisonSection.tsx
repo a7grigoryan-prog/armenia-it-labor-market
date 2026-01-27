@@ -152,7 +152,7 @@ export const SectorComparisonSection = () => {
               October 2025 • Cross-Sector Analysis
             </span>
             <h2 className="text-3xl md:text-5xl font-display font-bold mb-4">
-              <span className="text-gradient">Positioning in the Economy</span>
+              <span className="text-foreground">Positioning in the Economy</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
               How does Information and communication compare to other sectors?
