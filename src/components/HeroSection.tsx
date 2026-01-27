@@ -69,7 +69,7 @@ export const HeroSection = () => {
         >
           <span className="text-foreground">IT Labor Market</span>
           <br />
-          <span className="text-gradient">in Armenia</span>
+          <span className="text-gradient-armenia">in Armenia</span>
         </motion.h1>
 
         {/* Subtitle */}
