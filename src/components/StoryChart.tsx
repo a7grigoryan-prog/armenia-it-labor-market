@@ -73,14 +73,22 @@ export const StoryChart = ({
   }, [data]);
 
   const getLineOpacity = (year: number): number => {
-    if (activeYear === null && highlightedYear === null) return 1;
+    // When no filter is active (activeYear is null), show all lines fully
+    if (activeYear === null) {
+      // If hovered, make others slightly dimmer
+      if (hoveredYear !== null) {
+        return hoveredYear === year ? 1 : 0.4;
+      }
+      return 1;
+    }
+    // When a year is selected via filter
     if (hoveredYear === year) return 1;
-    if (activeYear === year || highlightedYear === year) return 1;
+    if (activeYear === year) return 1;
     return 0.15;
   };
 
   const getLineWidth = (year: number): number => {
-    if (highlightedYear === year || hoveredYear === year) return 4;
+    if (hoveredYear === year) return 4;
     if (activeYear === year) return 3;
     return 2;
   };

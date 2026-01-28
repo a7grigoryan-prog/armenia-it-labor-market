@@ -1,43 +1,19 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Banknote, TrendingUp, Calendar } from 'lucide-react';
+import { Banknote, Calendar, BarChart3, TrendingUp } from 'lucide-react';
 import { StoryChart } from './StoryChart';
+import { TimelineChart } from './TimelineChart';
 import { NarrativeCallout } from './NarrativeCallout';
 import { YearSelector } from './YearSelector';
+import { Switch } from './ui/switch';
+import { Label } from './ui/label';
 import { salaryData, salaryNarratives, formatNumber } from '@/lib/data';
 
 export const SalarySection = () => {
   const [activeYear, setActiveYear] = useState<number | null>(null);
-  const [highlightedYear, setHighlightedYear] = useState<number | null>(null);
+  const [showTimeline, setShowTimeline] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: false, margin: '-20%' });
-
-  // Scroll-based year highlighting
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    const handleScroll = () => {
-      const section = sectionRef.current;
-      if (!section) return;
-
-      const rect = section.getBoundingClientRect();
-      const sectionTop = -rect.top;
-      const sectionHeight = rect.height - window.innerHeight;
-      
-      if (sectionTop < 0 || sectionTop > sectionHeight) {
-        setHighlightedYear(null);
-        return;
-      }
-
-      const progress = sectionTop / sectionHeight;
-      const years = [2022, 2023, 2024, 2025];
-      const yearIndex = Math.min(Math.floor(progress * years.length), years.length - 1);
-      setHighlightedYear(years[yearIndex]);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Stats
   const startValue = 731.2;
@@ -105,18 +81,32 @@ export const SalarySection = () => {
           </div>
         </motion.div>
 
-        {/* Year selector */}
+        {/* Controls: Year selector + Timeline toggle */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex justify-center mb-8"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8"
         >
-          <YearSelector
-            years={[2022, 2023, 2024, 2025]}
-            activeYear={activeYear}
-            onYearChange={setActiveYear}
-          />
+          {!showTimeline && (
+            <YearSelector
+              years={[2022, 2023, 2024, 2025]}
+              activeYear={activeYear}
+              onYearChange={setActiveYear}
+            />
+          )}
+          
+          <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-muted/50 backdrop-blur-sm">
+            <BarChart3 className="w-4 h-4 text-muted-foreground" />
+            <Label htmlFor="timeline-toggle-sal" className="text-sm text-muted-foreground cursor-pointer">
+              Full Timeline
+            </Label>
+            <Switch
+              id="timeline-toggle-sal"
+              checked={showTimeline}
+              onCheckedChange={setShowTimeline}
+            />
+          </div>
         </motion.div>
 
         {/* Main content grid */}
@@ -128,13 +118,21 @@ export const SalarySection = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="lg:col-span-2 order-2 lg:order-1"
           >
-            <StoryChart
-              data={salaryData}
-              activeYear={activeYear}
-              highlightedYear={highlightedYear}
-              unit="K AMD"
-              yAxisDomain={[700, 1300]}
-            />
+            {showTimeline ? (
+              <TimelineChart
+                data={salaryData}
+                unit="K AMD"
+                yAxisDomain={[700, 1300]}
+              />
+            ) : (
+              <StoryChart
+                data={salaryData}
+                activeYear={activeYear}
+                highlightedYear={null}
+                unit="K AMD"
+                yAxisDomain={[700, 1300]}
+              />
+            )}
             
             {/* Context note */}
             <motion.div
@@ -164,7 +162,7 @@ export const SalarySection = () => {
               <NarrativeCallout
                 key={narrative.year}
                 narrative={narrative}
-                isActive={highlightedYear === narrative.year || activeYear === narrative.year}
+                isActive={activeYear === narrative.year}
               />
             ))}
           </motion.div>
