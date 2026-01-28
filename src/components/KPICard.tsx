@@ -49,13 +49,8 @@ export const KPICard = ({ title, value, unit, trend, trendPeriod = "since Jan 20
           )}
         </div>
         
-        {/* Title */}
-        <h3 className="text-sm font-medium text-muted-foreground mb-3 tracking-wide uppercase">
-          {title}
-        </h3>
-        
         {/* Value */}
-        <div className="flex items-baseline gap-3">
+        <div className="flex items-baseline gap-3 mb-2">
           <motion.span
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -66,6 +61,11 @@ export const KPICard = ({ title, value, unit, trend, trendPeriod = "since Jan 20
           </motion.span>
           <span className="text-xl text-muted-foreground font-medium">{unit}</span>
         </div>
+        
+        {/* Title - below value */}
+        <h3 className="text-sm font-medium text-muted-foreground tracking-wide uppercase">
+          {title}
+        </h3>
       </div>
 
       {/* Subtle gradient overlay */}

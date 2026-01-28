@@ -18,10 +18,24 @@ export const Footer = () => {
             A data story exploring employment and salary trends from 2022 to 2025
           </p>
           
-          <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
-            <span>Data Source: Statistical Committee of Armenia</span>
-            <span className="w-1 h-1 rounded-full bg-border" />
-            <span>Data Visualization Competition 2025</span>
+          <div className="flex flex-col items-center gap-4 text-sm text-muted-foreground">
+            <div className="flex items-center gap-4">
+              <span>Data Source: Statistical Committee of Armenia</span>
+              <span className="w-1 h-1 rounded-full bg-border" />
+              <span className="text-primary font-medium">Open Data Armenia Contest</span>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <span>Author:</span>
+              <a 
+                href="https://www.linkedin.com/in/arsen-grigoryan7/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary hover:text-primary/80 transition-colors font-medium underline underline-offset-2"
+              >
+                Arsen Grigoryan
+              </a>
+            </div>
           </div>
         </motion.div>
       </div>
