@@ -60,30 +60,51 @@ const CustomTooltip = ({ active, payload }: any) => {
 export const SectorComparisonSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [showAllEqual, setShowAllEqual] = useState(false);
+  const [manualPhaseIndex, setManualPhaseIndex] = useState<number | null>(null);
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
   });
 
-  const [currentPhase, setCurrentPhase] = useState<NarrativeState['phase']>('initial');
+  const [scrollPhase, setScrollPhase] = useState<NarrativeState['phase']>('initial');
   
   useEffect(() => {
     const unsubscribe = scrollYProgress.on('change', (value) => {
       if (value < 0.25) {
-        setCurrentPhase('initial');
+        setScrollPhase('initial');
       } else if (value < 0.4) {
-        setCurrentPhase('high-paying');
+        setScrollPhase('high-paying');
       } else if (value < 0.55) {
-        setCurrentPhase('mass-employment');
+        setScrollPhase('mass-employment');
       } else {
-        setCurrentPhase('full');
+        setScrollPhase('full');
       }
     });
     return () => unsubscribe();
   }, [scrollYProgress]);
 
+  // Use manual phase if set, otherwise use scroll-based phase
+  const currentPhase = manualPhaseIndex !== null 
+    ? narrativeStates[manualPhaseIndex].phase 
+    : scrollPhase;
   const currentNarrative = narrativeStates.find(n => n.phase === currentPhase) || narrativeStates[0];
+  
+  const handleNextInsight = () => {
+    const currentIndex = manualPhaseIndex !== null 
+      ? manualPhaseIndex 
+      : narrativeStates.findIndex(n => n.phase === scrollPhase);
+    const nextIndex = (currentIndex + 1) % narrativeStates.length;
+    setManualPhaseIndex(nextIndex);
+  };
+  
+  const handlePrevInsight = () => {
+    const currentIndex = manualPhaseIndex !== null 
+      ? manualPhaseIndex 
+      : narrativeStates.findIndex(n => n.phase === scrollPhase);
+    const prevIndex = currentIndex === 0 ? narrativeStates.length - 1 : currentIndex - 1;
+    setManualPhaseIndex(prevIndex);
+  };
 
   const visibleSectors = useMemo(() => {
     return sectorData.map(sector => {
@@ -273,7 +294,7 @@ export const SectorComparisonSection = () => {
                 />
               </div>
 
-              {/* Dynamic narrative */}
+              {/* Dynamic narrative with navigation */}
               <motion.div
                 key={currentNarrative.phase}
                 initial={{ opacity: 0, y: 20 }}
@@ -289,17 +310,43 @@ export const SectorComparisonSection = () => {
                 <p className="text-muted-foreground leading-relaxed">
                   {currentNarrative.description}
                 </p>
+                
+                {/* Navigation buttons */}
+                <div className="flex items-center gap-3 mt-4 pt-3 border-t border-border/30">
+                  <button
+                    onClick={handlePrevInsight}
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-muted/50 hover:bg-muted text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Prev
+                  </button>
+                  <span className="text-xs text-muted-foreground">
+                    {narrativeStates.findIndex(n => n.phase === currentPhase) + 1} / {narrativeStates.length}
+                  </span>
+                  <button
+                    onClick={handleNextInsight}
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-muted/50 hover:bg-muted text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Next
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
               </motion.div>
 
-              {/* Progress indicators */}
+              {/* Progress indicators - clickable */}
               <div className="flex gap-2">
                 {narrativeStates.map((state, index) => (
-                  <div
+                  <button
                     key={state.phase}
-                    className={`h-1 flex-1 rounded-full transition-all duration-300 ${
+                    onClick={() => setManualPhaseIndex(index)}
+                    className={`h-1.5 flex-1 rounded-full transition-all duration-300 hover:opacity-80 ${
                       narrativeStates.findIndex(n => n.phase === currentPhase) >= index
                         ? 'bg-primary'
-                        : 'bg-border'
+                        : 'bg-border hover:bg-border/80'
                     }`}
                   />
                 ))}
