@@ -22,7 +22,14 @@ export const Footer = () => {
             <div className="flex items-center gap-4">
               <span>Data Source: Statistical Committee of Armenia</span>
               <span className="w-1 h-1 rounded-full bg-border" />
-              <span className="text-primary font-medium">Open Data Armenia Contest</span>
+              <a 
+                href="https://contest.opendata.am/ru/2026" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary hover:text-primary/80 transition-colors font-medium underline underline-offset-2"
+              >
+                Open Data Armenia Contest
+              </a>
             </div>
             
             <div className="flex items-center gap-2">

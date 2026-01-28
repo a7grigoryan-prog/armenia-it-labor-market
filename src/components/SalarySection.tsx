@@ -88,13 +88,11 @@ export const SalarySection = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8"
         >
-          {!showTimeline && (
-            <YearSelector
-              years={[2022, 2023, 2024, 2025]}
-              activeYear={activeYear}
-              onYearChange={setActiveYear}
-            />
-          )}
+          <YearSelector
+            years={[2022, 2023, 2024, 2025]}
+            activeYear={activeYear}
+            onYearChange={setActiveYear}
+          />
           
           <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-muted/50 backdrop-blur-sm">
             <BarChart3 className="w-4 h-4 text-muted-foreground" />
