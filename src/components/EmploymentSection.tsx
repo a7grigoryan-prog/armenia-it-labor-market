@@ -69,7 +69,10 @@ export const EmploymentSection = () => {
             <div className="text-2xl md:text-3xl font-display font-bold text-year-2022">
               {peakValue}K
             </div>
-            <div className="text-xs text-muted-foreground">Peak (Dec 2022)</div>
+            <div className="text-xs text-muted-foreground">
+              <span className="block md:inline">Peak</span>
+              <span className="block md:inline md:ml-1">(Dec 2022)</span>
+            </div>
           </div>
           <div className="text-center p-4 rounded-xl bg-card/50 border border-border/50">
             <div className="text-2xl md:text-3xl font-display font-bold text-year-2025">
