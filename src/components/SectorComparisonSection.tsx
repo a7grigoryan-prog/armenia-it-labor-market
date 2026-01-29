@@ -153,11 +153,11 @@ export const SectorComparisonSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="min-h-[200vh] relative py-32"
+      className="min-h-[150vh] relative py-16 md:py-32"
       id="sector-comparison"
     >
       {/* Sticky container for the visualization */}
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-4 md:px-8">
+      <div className="sticky top-0 min-h-screen flex flex-col items-center justify-center px-4 md:px-8 pt-16 md:pt-0">
         {/* Background glow for IT sector emphasis */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
