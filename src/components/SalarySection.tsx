@@ -71,7 +71,10 @@ export const SalarySection = () => {
             <div className="text-2xl md:text-3xl font-display font-bold text-accent">
               {formatNumber(peakValue, 0)}K
             </div>
-            <div className="text-xs text-muted-foreground">Peak (Dec 2024)</div>
+            <div className="text-xs text-muted-foreground">
+              <span className="block md:inline">Peak</span>
+              <span className="block md:inline md:ml-1">(Dec 2024)</span>
+            </div>
           </div>
           <div className="text-center p-4 rounded-xl bg-card/50 border border-border/50">
             <div className="text-2xl md:text-3xl font-display font-bold text-year-2025">
