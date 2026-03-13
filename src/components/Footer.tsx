@@ -11,39 +11,36 @@ export const Footer = () => {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h3 className="font-display text-2xl font-bold mb-4">
+          <h3 className="font-display text-2xl md:text-3xl font-bold mb-4">
             IT Labor Market in Armenia
           </h3>
-          <p className="text-muted-foreground mb-6">
-            A data story exploring employment and salary trends from 2022 to 2025
+          <p className="text-muted-foreground mb-8">
+            A data story exploring employment and salary trends in Armenia's IT sector (2022–2025)
           </p>
           
-          <div className="flex flex-col items-center gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-4">
-              <span>Data Source: Statistical Committee of Armenia</span>
-              <span className="w-1 h-1 rounded-full bg-border" />
-              <a 
-                href="https://contest.opendata.am/ru/2026" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-primary hover:text-primary/80 transition-colors font-medium underline underline-offset-2"
-              >
-                Open Data Armenia Contest
-              </a>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <span>Author:</span>
-              <a 
-                href="https://www.linkedin.com/in/arsen-grigoryan7/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-primary hover:text-primary/80 transition-colors font-medium underline underline-offset-2"
-              >
-                Arsen Grigoryan
-              </a>
-            </div>
-          </div>
+          <p className="text-muted-foreground mb-6">
+            Data based on publicly available information from{' '}
+            <a 
+              href="https://www.armstat.am/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-primary hover:text-primary/80 transition-colors font-medium underline underline-offset-2"
+            >
+              Statistical Committee of Armenia
+            </a>
+          </p>
+
+          <p className="text-sm text-muted-foreground">
+            Author:{' '}
+            <a 
+              href="https://www.linkedin.com/in/arsen-grigoryan7/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Arsen Grigoryan
+            </a>
+          </p>
         </motion.div>
       </div>
 
