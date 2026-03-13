@@ -50,15 +50,6 @@ export const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto text-center">
         {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
-        >
-          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          <span className="text-sm font-medium text-primary">Data Story • 2022–2025</span>
-        </motion.div>
 
         {/* Title */}
         <motion.h1
